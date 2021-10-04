@@ -1,4 +1,4 @@
-package KotlinStandardLibrary
+package kotlinStandardLibrary
 
 /**
  * Exploring the side effects of using MutableLists

@@ -1,4 +1,4 @@
-package KotlinStandardLibrary
+package kotlinStandardLibrary
 
 fun main() {
 
