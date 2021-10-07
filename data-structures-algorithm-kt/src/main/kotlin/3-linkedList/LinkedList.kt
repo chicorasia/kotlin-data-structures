@@ -101,6 +101,22 @@ class LinkedList<T> {
     }
 
     /**
+     * pop() removes an element at the front of the list (head)
+     */
+    fun pop() : T? {
+        if (!isEmpty()) size--
+        val result = head?.value
+        head = head?.next
+
+        if (isEmpty()) {
+            tail = null
+        }
+
+        return result
+
+    }
+
+    /**
      * Will iterate through the items, starting
      * from the Node at the head of the list
      */
