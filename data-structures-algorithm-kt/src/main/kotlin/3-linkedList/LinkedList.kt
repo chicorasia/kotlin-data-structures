@@ -117,6 +117,42 @@ class LinkedList<T> {
     }
 
     /**
+     * This is my implementation, it is different from the book's.
+     * I'm not sure it covers all cases, but so far it seems to work.
+     */
+
+    fun removeLast() : T? {
+
+        /**
+         * If head and tail are the same, list has size 1. Delegate
+         * removeLast() to pop().
+         */
+        if (head == tail) return pop()
+
+        /**
+         * If not empty, traverse the array and check each node's next
+         * node next attribute for null. If not null, move one node down
+         * and check again.
+         * If null, assign the currentNode's next value to lastValue. Then,
+         * clear the pointer to the former last node, decrement
+         * size and return lastValue.
+         */
+        if(!isEmpty()){
+            var currentNode = head
+            while (currentNode?.next?.next != null) {
+                currentNode = currentNode.next
+            }
+            val lastValue = currentNode?.next?.value
+            currentNode?.next = null
+            size--
+            return lastValue
+        }
+
+        return null
+
+    }
+
+    /**
      * Will iterate through the items, starting
      * from the Node at the head of the list
      */
