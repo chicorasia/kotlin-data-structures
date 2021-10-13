@@ -66,10 +66,10 @@ fun main() {
 
     "remove last".example {
         val list = LinkedList<Int>()
-//        list.push(4)
-//        list.push(3)
-//        list.push(2)
-//        list.push(1)
+        list.push(4)
+        list.push(3)
+        list.push(2)
+        list.push(1)
 
         println("Before remove last list: $list")
         var last = list.removeLast()
