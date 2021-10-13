@@ -61,6 +61,10 @@ class LinkedList<T> {
      */
     fun nodeAt(index: Int) : Node<T>? {
 
+        if (index < 0 || index >= size) {
+            throw Exception("Array index out of bounds: $index")
+        }
+
         // start at the head of the list
         var currentNode = head
         var currentIndex = 0
@@ -144,11 +148,38 @@ class LinkedList<T> {
             }
             val lastValue = currentNode?.next?.value
             currentNode?.next = null
+            tail = currentNode
             size--
             return lastValue
         }
 
         return null
+
+    }
+
+    /**
+     * removeAfter(): parameter Node, return Value
+     *
+     */
+    fun removeAfter(node: Node<T>) : T? {
+        val result = node.next?.value
+
+        /**
+         * If removing the tail of the list update the tail
+         */
+        if(node.next == tail) {
+            tail = node
+        }
+
+        /**
+         * Decrement size if the element to remove is not null
+         */
+        if(node.next != null) {
+            size--
+        }
+
+        node.next = node.next?.next
+        return result
 
     }
 

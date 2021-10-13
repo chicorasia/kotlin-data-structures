@@ -80,6 +80,22 @@ fun main() {
         println("Popped value: $last")
     }
 
+    "remove after particular node".example {
+        val list = LinkedList<Int>()
+        list.push(4)
+        list.push(3)
+        list.push(2)
+        list.push(1)
+
+        println("Before removing at particular index: $list")
+        val index = 3
+        val node = list.nodeAt(index - 1)!!
+        val removedValue = list.removeAfter(node)
+
+        println("After removing at $index: $list")
+        println("Removed value: $removedValue")
+    }
+
 }
 
 /**
