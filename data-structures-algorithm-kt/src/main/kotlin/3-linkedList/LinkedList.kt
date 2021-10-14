@@ -4,11 +4,12 @@ package `3-linkedList`
  * This class defines a LinkedList<T> with generic type (actually, it'll
  * use the same type of its nodes).
  */
-class LinkedList<T> {
+class LinkedList<T> : Iterable<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    private var size = 0
+    var size = 0
+        private set
 
     /**
      * Simple method to tell if the list is empty
@@ -62,7 +63,7 @@ class LinkedList<T> {
     fun nodeAt(index: Int) : Node<T>? {
 
         if (index < 0 || index >= size) {
-            throw Exception("Array index out of bounds: $index")
+            throw IndexOutOfBoundsException()
         }
 
         // start at the head of the list
@@ -159,7 +160,7 @@ class LinkedList<T> {
 
     /**
      * removeAfter(): parameter Node, return Value
-     *
+     * TODO: expand this documentation!
      */
     fun removeAfter(node: Node<T>) : T? {
         val result = node.next?.value
@@ -195,4 +196,71 @@ class LinkedList<T> {
         }
     }
 
+    /**
+     * This method returns a LinkedListIterator for the LinkedList class
+     */
+    override fun iterator(): Iterator<T> = LinkedListIterator<T>(this)
+
+    /**
+     * This class defines a specific Iterator.
+     * LinkedListIterator is a concrete object that implements the
+     * Iterator<T> interface. It has two mandatory methods: hasNext()
+     * and next().
+     * It uses two auxiliary properties:
+     *      - index: keeps track of the current iterator position
+     *      - lastNode: keeps track of the last node
+     */
+    class LinkedListIterator<T>(
+        private val list: LinkedList<T>,
+        private var index: Int = 0,
+        private var lastNode: Node<T>? = null
+    ) : Iterator<T> {
+
+
+        /**
+         * Checks wether the index has reached the last element
+         * by comparing it with the size of the list.
+         */
+        override fun hasNext(): Boolean {
+            return index < list.size
+        }
+
+        override fun next(): T {
+            /**
+             * Checks wether there are still elements to return
+             */
+            if (index >= list.size) {
+                throw IndexOutOfBoundsException()
+            }
+
+            /**
+             * I got a little confused with this syntax :D
+             * If it's the first iteration, lastNode is position 0;
+             * otherwise, lastNode moves down the list by receiving the
+             * next one.
+             */
+//            lastNode = if (index == 0) {
+//                list.nodeAt(0)
+//            } else {
+//                lastNode?.next
+//            }
+
+            /**
+             * This sintax is easier to read but does the exact same thing:
+             */
+            if (index == 0) {
+                lastNode = list.nodeAt(0)
+            } else {
+                lastNode = lastNode?.next
+            }
+
+            /**
+             * Increment the index counter and return the "lastNode" as
+             * the next value.
+             */
+            index++
+            return lastNode!!.value
+        }
+
+    }
 }
