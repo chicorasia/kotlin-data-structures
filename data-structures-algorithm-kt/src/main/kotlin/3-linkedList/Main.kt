@@ -109,6 +109,70 @@ fun main() {
         }
     }
 
+    "contains()".example {
+        val list = LinkedList<Int>()
+        list.push(4)
+        list.push(3)
+        list.push(2)
+        list.push(1)
+        println(list.contains(5))
+    }
+
+    "containsAll()".example {
+        val list = LinkedList<Int>()
+        list.push(4)
+        list.push(3)
+        list.push(2)
+        list.push(1)
+
+        val secondList = LinkedList<Int>()
+        secondList.push(5)
+        secondList.push(2)
+        secondList.push(1)
+
+        println(list)
+        println(secondList)
+        println(list.containsAll(secondList))
+    }
+
+    "remove()".example {
+        val list = LinkedList<Int>()
+        list.push(4)
+        list.push(3)
+        list.push(2)
+        list.push(1)
+
+        println(list)
+        list.remove(1)
+        println(list)
+    }
+
+    "retaining elements".example {
+        val list = LinkedList<Int>()
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+        list.add(5)
+
+        println(list)
+        list.retainAll(listOf(1,5,3))
+        println(list)
+    }
+
+    "remove all elements".example {
+        val list = LinkedList<Int>()
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+        list.add(5)
+
+        println(list)
+        list.removeAll(listOf(1,3,5))
+        println(list)
+
+    }
 }
 
 /**

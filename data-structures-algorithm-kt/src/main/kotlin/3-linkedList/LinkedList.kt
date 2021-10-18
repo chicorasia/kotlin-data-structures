@@ -1,20 +1,22 @@
 package `3-linkedList`
 
+import jdk.nashorn.internal.objects.NativeArray.pop
+
 /**
  * This class defines a LinkedList<T> with generic type (actually, it'll
  * use the same type of its nodes).
  */
-class LinkedList<T> : Iterable<T> {
+class LinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCollection<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    var size = 0
+    override var size = 0
         private set
 
     /**
      * Simple method to tell if the list is empty
      */
-    fun isEmpty() = size == 0
+    override fun isEmpty() = size == 0
 
     /**
      * push() is used to insert a value at the front of the list.
@@ -27,7 +29,7 @@ class LinkedList<T> : Iterable<T> {
      * Returning the LinkedList allows for the use of a fluent interface
      * abd chained operations.
      */
-    fun push(value: T) : LinkedList<T> {
+    fun push(value: T): LinkedList<T> {
         head = Node(value = value, next = head)
         if (tail == null) {
             tail = head
@@ -42,7 +44,7 @@ class LinkedList<T> : Iterable<T> {
      * If not, make the current tail point to the new Node
      * and assign the new node to the tail property.
      */
-    fun append(value: T) : LinkedList<T> {
+    fun append(value: T): LinkedList<T> {
         if (isEmpty()) {
             push(value)
             /**
@@ -60,7 +62,7 @@ class LinkedList<T> : Iterable<T> {
     /**
      * Find a specific node at the given index.
      */
-    fun nodeAt(index: Int) : Node<T>? {
+    fun nodeAt(index: Int): Node<T>? {
 
         if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException()
@@ -71,7 +73,7 @@ class LinkedList<T> : Iterable<T> {
         var currentIndex = 0
 
         // start traversing and keep a tally until it reaches index
-        while (currentNode != null && currentIndex < index){
+        while (currentNode != null && currentIndex < index) {
             currentNode = currentNode.next
             currentIndex++
         }
@@ -82,7 +84,7 @@ class LinkedList<T> : Iterable<T> {
     /**
      * This method inserts a value after a specific node
      */
-    fun insert(value: T, afterNode: Node<T>) : Node<T> {
+    fun insert(value: T, afterNode: Node<T>): Node<T> {
 
         /**
          * If we are inserting after the tail
@@ -108,7 +110,7 @@ class LinkedList<T> : Iterable<T> {
     /**
      * pop() removes an element at the front of the list (head)
      */
-    fun pop() : T? {
+    fun pop(): T? {
         if (!isEmpty()) size--
         val result = head?.value
         head = head?.next
@@ -126,7 +128,7 @@ class LinkedList<T> : Iterable<T> {
      * I'm not sure it covers all cases, but so far it seems to work.
      */
 
-    fun removeLast() : T? {
+    fun removeLast(): T? {
 
         /**
          * If head and tail are the same, list has size 1. Delegate
@@ -142,7 +144,7 @@ class LinkedList<T> : Iterable<T> {
          * clear the pointer to the former last node, decrement
          * size and return lastValue.
          */
-        if(!isEmpty()){
+        if (!isEmpty()) {
             var currentNode = head
             while (currentNode?.next?.next != null) {
                 currentNode = currentNode.next
@@ -160,22 +162,21 @@ class LinkedList<T> : Iterable<T> {
 
     /**
      * removeAfter(): parameter Node, return Value
-     * TODO: expand this documentation!
      */
-    fun removeAfter(node: Node<T>) : T? {
+    fun removeAfter(node: Node<T>): T? {
         val result = node.next?.value
 
         /**
          * If removing the tail of the list update the tail
          */
-        if(node.next == tail) {
+        if (node.next == tail) {
             tail = node
         }
 
         /**
          * Decrement size if the element to remove is not null
          */
-        if(node.next != null) {
+        if (node.next != null) {
             size--
         }
 
@@ -199,7 +200,7 @@ class LinkedList<T> : Iterable<T> {
     /**
      * This method returns a LinkedListIterator for the LinkedList class
      */
-    override fun iterator(): Iterator<T> = LinkedListIterator<T>(this)
+    override fun iterator(): MutableIterator<T> = LinkedListIterator<T>(this)
 
     /**
      * This class defines a specific Iterator.
@@ -214,7 +215,7 @@ class LinkedList<T> : Iterable<T> {
         private val list: LinkedList<T>,
         private var index: Int = 0,
         private var lastNode: Node<T>? = null
-    ) : Iterator<T> {
+    ) : Iterator<T>, MutableIterator<T> {
 
 
         /**
@@ -262,5 +263,124 @@ class LinkedList<T> : Iterable<T> {
             return lastNode!!.value
         }
 
+        /**
+         *
+         */
+        override fun remove() {
+            if (index == 1) {
+                list.pop()
+            } else {
+                val prevNode = list.nodeAt(index - 2) ?: return
+                list.removeAfter(prevNode)
+                lastNode = prevNode
+            }
+            index--
+        }
+
+    }
+
+    /**
+     * These methods are required for Collection<T>
+     * contains(element) runs in O(n) because
+     * it has to iterate through all the elements.
+     *
+     */
+    override fun contains(element: T): Boolean {
+        for (item in this) {
+            if (element == item) return true
+        }
+        return false
+    }
+
+    /**
+     * containsAll() is based on contains(). It is very inefficient
+     * and runs in O(n^2)
+     */
+    override fun containsAll(elements: Collection<T>): Boolean {
+        for (searched in elements) {
+            if (!contains(searched)) return false
+        }
+        return true
+    }
+
+    /**
+     * These are the mandatory methods for a MutableCollection<T>.
+     */
+
+    /**
+     * A LinkedList has no fixed size, so it will append the new
+     * element and return true.
+     */
+    override fun add(element: T): Boolean {
+        this.append(element)
+        return true
+    }
+
+    /**
+     * addAll() takes advantage of the Collection's iterator
+     * and simply calls the append() function to add each element
+     */
+    override fun addAll(elements: Collection<T>): Boolean {
+        for (element in elements) {
+            this.append(element)
+        }
+        return true
+    }
+
+    /**
+     * clear() resets the head, the tail and the size
+     */
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    /**
+     * remove() uses and iterator to traverse the list and look for the
+     * desired element.
+     */
+    override fun remove(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item == element) {
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Return true if any items have been removed
+     */
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        for (item in elements) {
+            result = remove(item) || result
+        }
+        return result
+    }
+
+    /**
+     * Keep the elements passed as a parameter and remove all others.
+     * Return true if any elements have been removed.
+     */
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result = false
+        val iterator = this.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+
+            /**
+             * Remove the current item if it is not in elements
+             */
+            if (!elements.contains(item)) {
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
     }
 }
