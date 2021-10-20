@@ -91,11 +91,11 @@ class Solution {
             var i = 0
             var j = 0
 
-            for (k in p..r){
+            for (k in p..r) {
                 if (abs(L[i]) <= abs(R[j])) {
                     nums[k] = L[i]
                     i++
-                } else  {
+                } else {
                     nums[k] = R[j]
                     j++
                 }
@@ -111,7 +111,93 @@ class Solution {
 
         }
 
+        fun mergeSortedArrays(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
 
+            //handling the edge cases
+            if (n == 0) return
+            if (m == 0) {
+                for (i in nums1.indices) {
+                    nums1[i] = nums2[i]
+                }
+                return
+            }
+
+            val aux = IntArray(m)
+
+            for (i in aux.indices) {
+                aux[i] = nums1[i]
+            }
+
+            var i = 0
+            var j = 0
+            var k = 0
+
+            while (k < nums1.size) {
+                while (i < m && j < n) {
+                    if (aux[i] <= nums2[j]) {
+                        nums1[k] = aux[i]
+                        i++
+                    } else {
+                        nums1[k] = nums2[j]
+                        j++
+                    }
+                    k++
+                }
+                // add remaining elements from aux
+                while (i < m) {
+                    nums1[k] = aux[i]
+                    i++
+                    k++
+                }
+
+                //add remaining elements from nums1
+                while (j < n) {
+                    nums1[k] = nums2[j]
+                    j++
+                    k++
+                }
+            }
+
+
+        }
+
+        fun mergeSortedArraysAux(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
+
+            //handling the edge cases
+            if (n == 0) return
+            if (m == 0) {
+                for (i in nums1.indices) {
+                    nums1[i] = nums2[i]
+                }
+            }
+
+            var i = 0
+            var j = 0
+
+            var result = IntArray(m + n)
+
+            while (i < m && j < n) {
+                if (nums1[i] <= nums2[j]) {
+                    i++
+                }
+                if (nums1[i] > nums2[j]) {
+                    nums1[m + i] = nums1[i]
+                    nums1[i] = nums2[j]
+                    j++
+                }
+            }
+
+            while (i < m + n) {
+                nums1[m + i] = nums1[i]
+                i++
+            }
+            while (j < n) {
+                nums1[m + j] = nums2[j]
+                j++
+            }
+        }
 
     }
+
+
 }
