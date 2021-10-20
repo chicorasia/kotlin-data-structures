@@ -124,7 +124,7 @@ class Solution {
 
             val aux = IntArray(m)
 
-            for (i in aux.indices) {
+            for (i in 0 until m) {
                 aux[i] = nums1[i]
             }
 
@@ -135,33 +135,24 @@ class Solution {
             while (k < nums1.size) {
                 while (i < m && j < n) {
                     if (aux[i] <= nums2[j]) {
-                        nums1[k] = aux[i]
-                        i++
+                        nums1[k++] = aux[i++]
                     } else {
-                        nums1[k] = nums2[j]
-                        j++
+                        nums1[k++] = nums2[j++]
                     }
-                    k++
                 }
                 // add remaining elements from aux
                 while (i < m) {
-                    nums1[k] = aux[i]
-                    i++
-                    k++
+                    nums1[k++] = aux[i++]
                 }
 
                 //add remaining elements from nums1
                 while (j < n) {
-                    nums1[k] = nums2[j]
-                    j++
-                    k++
+                    nums1[k++] = nums2[j++]
                 }
             }
-
-
         }
 
-        fun mergeSortedArraysAux(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
+        fun mergeSortedArraysFromTail(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
 
             //handling the edge cases
             if (n == 0) return
@@ -169,35 +160,32 @@ class Solution {
                 for (i in nums1.indices) {
                     nums1[i] = nums2[i]
                 }
+                return
             }
 
-            var i = 0
-            var j = 0
+            var i = m - 1
+            var j = n - 1
+            var k = m + n - 1
 
-            var result = IntArray(m + n)
 
-            while (i < m && j < n) {
-                if (nums1[i] <= nums2[j]) {
-                    i++
-                }
+            while (i >= 0 && j >= 0) {
                 if (nums1[i] > nums2[j]) {
-                    nums1[m + i] = nums1[i]
-                    nums1[i] = nums2[j]
-                    j++
+                    nums1[k--] = nums1[i--]
+                } else {
+                    nums1[k--] = nums2[j--]
                 }
             }
+            // add remaining elements from nums1
+            while (i >= 0) {
+                nums1[k--] = nums1[i--]
 
-            while (i < m + n) {
-                nums1[m + i] = nums1[i]
-                i++
             }
-            while (j < n) {
-                nums1[m + j] = nums2[j]
-                j++
+//                //add remaining elements from nums2
+            while (j >= 0) {
+                nums1[k--] = nums2[j--]
             }
+
+
         }
-
     }
-
-
 }

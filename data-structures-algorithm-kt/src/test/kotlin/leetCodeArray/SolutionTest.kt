@@ -45,7 +45,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(2,5,6,6,8,9)
         val n = 6
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(1,2,2,3,5,6,6,8,9)
 
         nums1.forEach {
@@ -64,7 +64,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(6,7)
         val n = 2
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(2,3,4,6,7)
 
         nums1.forEach {
@@ -83,7 +83,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(0,0)
         val n = 2
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(0,0,1,1,1)
 
         nums1.forEach {
@@ -102,7 +102,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(0,0,1,1)
         val n = 4
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(0,0,0,0,1,1)
 
         nums1.forEach {
@@ -121,7 +121,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(1)
         val n = 1
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(1,2)
 
         nums1.forEach {
@@ -140,7 +140,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf()
         val n = 0
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(1)
 
         assertTrue(nums1.contentEquals(response))
@@ -154,7 +154,7 @@ internal class SolutionTest {
         val nums2 = intArrayOf(1)
         val n = 1
 
-        Solution.mergeSortedArrays(nums1, m, nums2, n)
+        Solution.mergeSortedArraysFromTail(nums1, m, nums2, n)
         val response = intArrayOf(1)
 
         assertTrue(nums1.contentEquals(response))
