@@ -18,6 +18,15 @@ class RemoveFromArraySolutions {
         }
 
 
+        /**
+         * This algorithm keeps track of two cursors: sorted
+         * is the last sorted position while head is the
+         * current position. If sorted != head, then
+         * assign the value at head to sorted and move
+         * sorted one position down the array. In the end
+         * return the number of non-duplicate items which
+         *  is equivalent to sorted + 1.
+         */
         fun removeDuplicate(nums: IntArray): Int {
 
             if (nums.isEmpty()) return 0
