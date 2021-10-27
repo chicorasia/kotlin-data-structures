@@ -33,6 +33,56 @@ class LinearSearchSolutions {
             return false
 
         }
+
+        fun validMountainArray(arr: IntArray) : Boolean {
+
+            /**
+             * Check the edge cases first
+             */
+            if (arr.size < 3) return false
+
+            /**
+             * Traverse from each end using the two pointer technique
+             */
+            var i = 0
+            var j = arr.size - 1
+
+
+            while (arr[i] < arr[i + 1] && i < arr.size - 2 ) {
+               i++
+            }
+            while (j > 0 && arr[j] < arr[j - 1]) {
+                j--
+                }
+
+            if (i == arr.size - 1 || j == 0) return false
+            else return i == j
+
+        }
+
+        fun validMountainArrayOld(arr: IntArray) : Boolean {
+
+            /**
+             * Check the edge cases first
+             */
+            if (arr.size < 3) return false
+
+            /**
+             * Use the runner technique to traverse faster
+             */
+            var i = 1
+            var j = arr.size - 1
+
+            while (i < arr.size && arr[i] > arr[i - 1] ) {
+                i++
+                if (i == arr.size - 1) { return false }
+            }
+            while (j > 0 && arr[j] < arr[j - 1]) {
+                j--
+                if (j == 0) { return false }
+            }
+            return i >= j
+        }
     }
 
 
