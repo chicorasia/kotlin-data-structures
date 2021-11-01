@@ -11,4 +11,4 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
   - Linear search
   - Remove from Array
 
-![October is for algorithms!](algorithm.jpg.jpeg)
+![October is for algorithms!](algorithm.jpeg)
