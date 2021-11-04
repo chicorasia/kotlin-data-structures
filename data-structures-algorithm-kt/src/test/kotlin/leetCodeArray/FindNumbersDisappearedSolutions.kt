@@ -9,7 +9,7 @@ class FindNumbersDisappearedSolutions {
         /**
          * A trivial solution using an auxiliary array of counters.
          */
-        fun findDisappearedNumbersWithCounter(nums: IntArray): List<Int> {
+        fun findDisappearedNumbers(nums: IntArray): List<Int> {
 
             val result = mutableListOf<Int>()
             val counterArray = IntArray(nums.size)
