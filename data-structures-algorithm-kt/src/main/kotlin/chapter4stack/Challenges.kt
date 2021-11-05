@@ -1,6 +1,7 @@
 package chapter4stack
 
 import chapter3linkedlist.LinkedList
+import chapter4stack.StackImpl.Companion.create
 import example
 
 fun main() {
@@ -34,19 +35,25 @@ fun main() {
  * Space complexity: O(n)
  */
 fun <T : Any> LinkedList<T>.printInReverse() {
-    val stack = StackImpl<T>()
+
+    /**
+     * Create a stack from the LinkedList
+     */
+    val stack = create(this)
 
     /**
      * Add each node to the top of the stack,
      * effectively creating a copy of the
-     * list in the form of a stack.
+     * list in the form of a stack. This is redundant
+     * because I've used the static factory method
+     * to create the stack.
      */
-    for (node in this) {
-        stack.push(node)
-    }
+//    for (node in this) {
+//        stack.push(node)
+//    }
 
     /**
-     * an auxiliary variable
+     * An auxiliary variable to help empty the stack
      */
     var node = stack.pop()
 
@@ -61,6 +68,12 @@ fun <T : Any> LinkedList<T>.printInReverse() {
     }
 
 }
+
+/**
+ * Check for balanced parenthesis.
+ * Time complexity: O(n)
+ * Size complesity: O(n)
+ */
 fun String.checkParentheses() : Boolean {
 
     val stack = StackImpl<Char>()
