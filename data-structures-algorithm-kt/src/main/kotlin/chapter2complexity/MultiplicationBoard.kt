@@ -1,4 +1,4 @@
-package `2-complexity`
+package chapter2complexity
 
 fun main() {
 

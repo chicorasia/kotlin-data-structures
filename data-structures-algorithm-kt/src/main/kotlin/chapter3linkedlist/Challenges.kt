@@ -1,4 +1,6 @@
-package `3-linkedList`
+package chapter3linkedlist
+
+import example
 
 fun main() {
 

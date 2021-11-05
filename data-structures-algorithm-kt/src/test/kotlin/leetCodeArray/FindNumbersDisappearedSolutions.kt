@@ -1,7 +1,5 @@
 package leetCodeArray
 
-import `3-linkedList`.LinkedList
-
 class FindNumbersDisappearedSolutions {
 
     companion object {

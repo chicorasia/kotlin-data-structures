@@ -1,4 +1,4 @@
-package `3-linkedList`
+package chapter3linkedlist
 
 /**
  * This data class represents a simple node in a Linked List.

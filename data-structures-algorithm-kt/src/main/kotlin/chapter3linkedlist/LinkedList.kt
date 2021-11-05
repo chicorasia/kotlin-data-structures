@@ -1,6 +1,4 @@
-package `3-linkedList`
-
-import jdk.nashorn.internal.objects.NativeArray.pop
+package chapter3linkedlist
 
 /**
  * This class defines a LinkedList<T> with generic type (actually, it'll
