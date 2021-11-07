@@ -4,6 +4,7 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
 
 ### Data Structures implemented:
   - LinkedList
+  - DoubleLinkedList
   - Stack
   - Queues:
     - ArrayListQueue
