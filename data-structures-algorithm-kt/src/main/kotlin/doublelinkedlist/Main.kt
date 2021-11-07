@@ -12,7 +12,7 @@ fun main() {
         doubleLinkedList.push(3)
 
         println(doubleLinkedList.head)
-        println("Tamanho: ${doubleLinkedList.size}")
+        println("Size: ${doubleLinkedList.size}")
 
     }
 
@@ -24,7 +24,7 @@ fun main() {
         anotherDoubleLinkedList.append(3)
 
         println(anotherDoubleLinkedList.head)
-        println("Tamanho: ${anotherDoubleLinkedList.size}")
+        println("Size: ${anotherDoubleLinkedList.size}")
 
     }
 
@@ -35,12 +35,12 @@ fun main() {
         doubleLinkedList.append(3)
         doubleLinkedList.append(5)
         println(doubleLinkedList.head)
-        println("Inserindo depois de 0")
+        println("Inserting after 0")
 
 
         doubleLinkedList.insert(2, doubleLinkedList.nodeAt(2)!!)
         println(doubleLinkedList.head)
-        println("Tamanho: ${doubleLinkedList.size}")
+        println("Size: ${doubleLinkedList.size}")
 
     }
 
@@ -51,6 +51,45 @@ fun main() {
         list.append(3)
 
         println(list.nodeAt(1))
+    }
+
+    "pop()".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+
+        println("Size:${list.size}")
+        println("Popped: ${list.pop()}")
+        println(list.head)
+        println("Size: ${list.size}")
+    }
+
+    "removeLast()".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+
+        println(list.head)
+        println("Size:${list.size}") //3
+        println("Popped: ${list.removeLast()}") // 3
+        println(list.head)
+        println("Size: ${list.size}") //2
+    }
+
+    "removeAfter()".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+        list.append(4)
+
+        println(list.head)
+        println("Size:${list.size}") //4
+        println("Remove after node 0: ${list.removeAfter(list.nodeAt(0)!!)}") // 2
+        println(list.head)
+        println("Size: ${list.size}") //3
     }
 
 

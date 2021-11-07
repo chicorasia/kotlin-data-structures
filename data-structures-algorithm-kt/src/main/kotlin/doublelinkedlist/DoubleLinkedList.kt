@@ -13,8 +13,11 @@ class DoubleLinkedList<T> {
     //append() -> adicionar no fim da lista (tail)
     //insert() -> adicionar em qualquer posição
     //nodeAt() -> retorna o nó na posição index
+    //pop() -> retorna o primeiro elemento e remove da lista
+    //removeLast() -> retorna o último elemento e remove da lista
+    //removeAfter() -> retorna o elemento em uma posição arbitrária
 
-    fun push(value: T) : DoubleLinkedList<T> {
+    fun push(value: T): DoubleLinkedList<T> {
         head = Node(value = value, next = head).also { newNode ->
             head?.prev = newNode
         }
@@ -25,7 +28,7 @@ class DoubleLinkedList<T> {
         return this
     }
 
-    fun append(value: T) : DoubleLinkedList<T> {
+    fun append(value: T): DoubleLinkedList<T> {
         if (isEmpty()) {
             push(value)
             return this
@@ -37,7 +40,7 @@ class DoubleLinkedList<T> {
         return this
     }
 
-    fun nodeAt(index: Int) : Node<T>? {
+    fun nodeAt(index: Int): Node<T>? {
 
         if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException()
@@ -46,7 +49,7 @@ class DoubleLinkedList<T> {
         var currentNode = head
         var currentIndex = 0
 
-        while (currentNode  != null && currentIndex < index) {
+        while (currentNode != null && currentIndex < index) {
             currentNode = currentNode.next
             currentIndex++
         }
@@ -54,7 +57,7 @@ class DoubleLinkedList<T> {
     }
 
 
-    fun insert(value: T, afterNode: Node<T>) : Node<T> {
+    fun insert(value: T, afterNode: Node<T>): Node<T> {
 
         if (tail == afterNode) {
             append(value)
@@ -68,5 +71,54 @@ class DoubleLinkedList<T> {
         size++
         return newNode
     }
+
+    fun pop(): T? {
+
+        if (!isEmpty()) {
+            return head?.value.also {
+                head = head?.next
+                head?.prev = null
+                size--
+            }
+        }
+        return null
+    }
+
+    fun removeLast(): T? {
+
+        if (head == tail) {
+            return pop()
+        }
+
+        if (!isEmpty()) {
+            return tail?.value.also {
+                tail = tail?.prev
+                tail?.next = null
+                size--
+            }
+        }
+
+        return null
+
+    }
+
+    fun removeAfter(afterNode: Node<T>) : T? {
+
+        /**
+         * Removing the second to last element
+         */
+        if (afterNode == tail?.prev) {
+            return removeLast()
+        }
+
+        val result = afterNode.next
+        afterNode.next = result?.next
+        result?.next?.prev = afterNode
+        size--
+
+        return result?.value ?: null
+
+    }
+
 
 }
