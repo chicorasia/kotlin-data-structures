@@ -92,6 +92,42 @@ fun main() {
         println("Size: ${list.size}") //3
     }
 
+    "Traverse with iterator".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+        list.append(4)
+
+        for (item in list) {
+            println(item * item)
+        }
+
+    }
+
+    "Contains".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+        list.append(4)
+
+        println("Tem 5? ${list.contains(5)}")
+        println("Tem 3? ${list.contains(3)}")
+    }
+
+
+    "ContainsAll".example {
+        val list = DoubleLinkedList<Int>()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+        list.append(4)
+
+        println("Tem 3 e 4? ${list.containsAll(listOf(3, 4))}")
+        println("Tem 4, 5 e 6? ${list.containsAll(listOf(4,5,6))}")
+    }
+
 
 
 }

@@ -1,13 +1,13 @@
 package doublelinkedlist
 
-class DoubleLinkedList<T> {
+class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
 
     var head: Node<T>? = null
     var tail: Node<T>? = null
-    var size: Int = 0
+    override var size: Int = 0
         private set
 
-    fun isEmpty(): Boolean = size == 0
+    override fun isEmpty(): Boolean = size == 0
 
     //push() -> adicionar na frente da lista (head)
     //append() -> adicionar no fim da lista (tail)
@@ -119,6 +119,52 @@ class DoubleLinkedList<T> {
         return result?.value ?: null
 
     }
+
+    override fun iterator(): Iterator<T> = DoubleLinkedListIterator<T>(this)
+
+    override fun contains(element: T): Boolean {
+        for (item in this) {
+            if (element == item) return true
+        }
+        return false
+    }
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+
+        for (searched in elements) {
+            if (!contains(searched)) return false
+        }
+        return true
+    }
+
+    class DoubleLinkedListIterator<T>(
+        private val list: DoubleLinkedList<T>,
+        var index: Int = 0,
+        var lastNode: Node<T>? = null //ultimo node acessado!
+
+    ) : Iterator<T> {
+        override fun hasNext(): Boolean {
+            return index < list.size
+        }
+
+        override fun next(): T {
+            if (index >= list.size) {
+                throw IndexOutOfBoundsException()
+            }
+
+            if (index == 0) {
+                lastNode = list.nodeAt(0)
+            } else {
+                lastNode = lastNode?.next
+            }
+
+            index++
+            return lastNode!!.value
+
+        }
+
+    }
+
 
 
 }
