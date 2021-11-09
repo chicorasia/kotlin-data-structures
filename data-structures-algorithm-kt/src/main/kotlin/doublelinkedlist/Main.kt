@@ -129,5 +129,58 @@ fun main() {
     }
 
 
+    "remove()".example {
+        val list = DoubleLinkedList<Char>()
+        list.append('A')
+        list.append('B')
+        list.append('C')
+        list.append('D')
+
+        println(list.head)
+        list.remove('C')
+        println(list.head)
+
+    }
+
+   "retain elements".example {
+
+       val list = DoubleLinkedList<Char>()
+       list.append('A')
+       list.append('B')
+       list.append('C')
+       list.append('D')
+
+       println(list.head)
+       list.retainAll(listOf('C','D'))
+       println(list.head)
+
+   }
+
+    "removeAll".example {
+        val list = DoubleLinkedList<Char>()
+        list.append('A')
+        list.append('B')
+        list.append('C')
+        list.append('D')
+        list.append('E')
+
+        println(list.head)
+        list.removeAll(listOf('C','D'))
+        println(list.head)
+    }
+
+    "clear".example {
+        val list = DoubleLinkedList<Char>()
+        list.append('A')
+        list.append('B')
+        list.append('C')
+        list.append('D')
+        list.append('E')
+
+        println(list.head)
+        list.clear()
+        println(list.head)
+    }
+
 
 }

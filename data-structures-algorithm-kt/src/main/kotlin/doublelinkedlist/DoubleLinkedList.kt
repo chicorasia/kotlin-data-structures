@@ -1,6 +1,6 @@
 package doublelinkedlist
 
-class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
+class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCollection<T> {
 
     var head: Node<T>? = null
     var tail: Node<T>? = null
@@ -42,9 +42,9 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
 
     fun nodeAt(index: Int): Node<T>? {
 
-        if (index < 0 || index >= size) {
-            throw IndexOutOfBoundsException()
-        }
+//        if (index < 0 || index >= size) {
+//            throw IndexOutOfBoundsException()
+//        }
 
         var currentNode = head
         var currentIndex = 0
@@ -120,7 +120,7 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
 
     }
 
-    override fun iterator(): Iterator<T> = DoubleLinkedListIterator<T>(this)
+    override fun iterator(): MutableIterator<T> = DoubleLinkedListIterator<T>(this)
 
     override fun contains(element: T): Boolean {
         for (item in this) {
@@ -142,7 +142,7 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
         var index: Int = 0,
         var lastNode: Node<T>? = null //ultimo node acessado!
 
-    ) : Iterator<T> {
+    ) : MutableIterator<T> {
         override fun hasNext(): Boolean {
             return index < list.size
         }
@@ -163,8 +163,74 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T> {
 
         }
 
+        override fun remove() {
+            if (index == 1) {
+                list.pop()
+            } else {
+                val prevNode = list.nodeAt(index - 1)?.prev ?: return
+                list.removeAfter(prevNode)
+                lastNode = prevNode
+            }
+            index--
+
+        }
+
     }
 
+    override fun add(element: T): Boolean {
+        append(element)
+        return true
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean {
+        for (item in elements) {
+            append(item)
+        }
+        return true
+    }
+
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    override fun remove(element: T): Boolean {
+        //obter um iterator
+        //percorrer a coleção até achar o elemento
+        //remover na posição
+        //retorno true ou false
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item == element) {
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        for (searched in elements){
+            result = remove(searched) || result
+        }
+        return result
+    }
+
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result = false
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (!elements.contains(item)) {
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
+    }
 
 
 }
