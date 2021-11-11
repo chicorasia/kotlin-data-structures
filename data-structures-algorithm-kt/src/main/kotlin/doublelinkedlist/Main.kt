@@ -137,7 +137,7 @@ fun main() {
         list.append('D')
 
         println(list.head)
-        list.remove('C')
+        list.remove('D')
         println(list.head)
 
     }

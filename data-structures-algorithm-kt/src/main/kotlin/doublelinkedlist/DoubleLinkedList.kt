@@ -167,7 +167,7 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
             if (index == 1) {
                 list.pop()
             } else {
-                val prevNode = list.nodeAt(index - 1)?.prev ?: return
+                val prevNode = lastNode?.prev ?: return
                 list.removeAfter(prevNode)
                 lastNode = prevNode
             }
@@ -202,7 +202,7 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
         //retorno true ou false
         val iterator = iterator()
         while (iterator.hasNext()) {
-            val item = iterator.next()
+            val item = iterator.next() //primeira coisa que ele faz é incrementar o iterador!
             if (item == element) {
                 iterator.remove()
                 return true
