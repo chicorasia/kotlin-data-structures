@@ -42,10 +42,6 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
 
     fun nodeAt(index: Int): Node<T>? {
 
-//        if (index < 0 || index >= size) {
-//            throw IndexOutOfBoundsException()
-//        }
-
         var currentNode = head
         var currentIndex = 0
 
@@ -140,9 +136,9 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
     class DoubleLinkedListIterator<T>(
         private val list: DoubleLinkedList<T>,
         var index: Int = 0,
-        var lastNode: Node<T>? = null //ultimo node acessado!
-
+        var lastNode: Node<T>? = null //last node visited
     ) : MutableIterator<T> {
+
         override fun hasNext(): Boolean {
             return index < list.size
         }
@@ -164,7 +160,7 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
         }
 
         override fun remove() {
-            if (index == 1) {
+            if (index == 1) { //index will never be 0
                 list.pop()
             } else {
                 val prevNode = lastNode?.prev ?: return
@@ -196,13 +192,10 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
     }
 
     override fun remove(element: T): Boolean {
-        //obter um iterator
-        //percorrer a coleção até achar o elemento
-        //remover na posição
-        //retorno true ou false
+
         val iterator = iterator()
         while (iterator.hasNext()) {
-            val item = iterator.next() //primeira coisa que ele faz é incrementar o iterador!
+            val item = iterator.next() //get the next position and increment iterator's index
             if (item == element) {
                 iterator.remove()
                 return true
@@ -232,5 +225,6 @@ class DoubleLinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, Muta
         return result
     }
 
+    override fun toString(): String = head.toString()
 
 }
