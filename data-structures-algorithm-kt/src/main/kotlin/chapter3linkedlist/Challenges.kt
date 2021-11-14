@@ -136,7 +136,7 @@ fun <T> LinkedList<T>.reversed() : LinkedList<T> {
 
 
 /**
- * TODO: understand these better.
+ * A merge-sorted algorithm
  */
 fun <T: Comparable<T>> LinkedList<T>.mergeSorted(otherList: LinkedList<T>) : LinkedList<T> {
     if (this.isEmpty()) return otherList

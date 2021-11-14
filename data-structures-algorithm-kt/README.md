@@ -8,6 +8,7 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
   - Stack
   - Queues:
     - ArrayListQueue
+    - LinkedListQueue
 
 ### LeetCode challenges
 #### Arrays 101
