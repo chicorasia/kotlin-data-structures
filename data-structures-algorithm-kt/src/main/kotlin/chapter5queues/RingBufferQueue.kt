@@ -22,7 +22,7 @@ class RingBufferQueue<T>(size: Int) : Queue<T> {
      * Check if the buffer is empty before removing an item
      * to prevent buffer underflows.
      */
-    override fun peek(): T? = ringBuffer.peek()
+    override fun peek(): T? = ringBuffer.first
 
     override fun toString(): String = ringBuffer.toString()
 }

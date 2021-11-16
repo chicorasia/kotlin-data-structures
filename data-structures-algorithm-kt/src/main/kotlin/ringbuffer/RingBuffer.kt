@@ -18,6 +18,9 @@ class RingBuffer<T>(private val size: Int) {
 
     fun isFull() = count == size
 
+    val first: T?
+        get() = peek()
+
     /**
      * Retrieve a value from the "read" position and
      * move the cursor.
