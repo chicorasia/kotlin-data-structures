@@ -6,9 +6,11 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
   - LinkedList
   - DoubleLinkedList
   - Stack
+  - RingBuffer
   - Queues:
     - ArrayListQueue
     - LinkedListQueue
+    - RingBufferQueue
 
 ### LeetCode challenges
 #### Arrays 101
