@@ -2,7 +2,7 @@ package ringbuffer
 
 /**
  * Implementing a RingBuffer using and array of fixed size
- * as storage. I can't use Array<T> so used Arra<Any> because
+ * as storage. I can't use Array<T> so used Array<Any> because
  * the type has to be known in compile time.
  * "size" property must be public because the Queue interface
  * needs to track its size.
