@@ -23,5 +23,7 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
   - Sort by parity
   - Height Checker
 
+#### Stacks & Queues
+  - Circular Array
 
 ![October is for algorithms!](algorithm.jpeg)
