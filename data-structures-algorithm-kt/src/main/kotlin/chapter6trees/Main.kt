@@ -1,10 +1,20 @@
 package chapter6trees
 
+import example
+
 fun main() {
 
     val tree = makeBeverageTree()
-    tree.forEachDepthFirst {
-        println(it.value)
+    "For each depth-first".example {
+        tree.forEachDepthFirst {
+            println(it.value)
+        }
+    }
+
+    "For each level order".example {
+        tree.forEachLevelOrder {
+            println(it.value)
+        }
     }
 
 }
