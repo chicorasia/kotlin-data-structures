@@ -1,6 +1,8 @@
 package chapter6trees
 
+import chapter5queues.ArrayListQueue
 import chapter5queues.DoubleStackQueue
+import sun.reflect.generics.tree.Tree
 
 
 /**
@@ -69,6 +71,49 @@ class TreeNode<T>(val value: T) {
             }
             node = queue.dequeue()
         }
+    }
+
+    /**
+     * A simple BFS algorithm using Level-Order Traversal
+     */
+    fun search(value: T) : TreeNode<T>? {
+        var result: TreeNode<T>? = null
+
+        forEachLevelOrder {
+            if (it.value == value) { result = it }
+        }
+        return result
+    }
+
+    /**
+     * This function uses a Queue and nested while loops to
+     * print each level of the tree on a separate line.
+     * - Time complexity: O(n)
+     * - Space complexity: O(n)
+     */
+    fun printEachLevel() {
+        val queue = ArrayListQueue<TreeNode<T>>()
+        var nodesLeftInCurrentLevel = 0
+        queue.enqueue(this)
+
+        while(!queue.isEmpty) {
+            nodesLeftInCurrentLevel = queue.count
+
+            while(nodesLeftInCurrentLevel > 0) {
+                val node = queue.dequeue()
+                node?.let {
+                    print("${it.value} ")
+                    node.children.forEach {
+                        queue.enqueue(it)
+                    }
+                    nodesLeftInCurrentLevel--
+                } ?: break
+            }
+
+            println()
+        }
+
+
     }
 }
 

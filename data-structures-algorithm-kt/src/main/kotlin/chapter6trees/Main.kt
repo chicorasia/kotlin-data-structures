@@ -17,6 +17,20 @@ fun main() {
         }
     }
 
+    "Search".example {
+        tree.search("ginger ale")?.let{
+            println("Found node: ${it.value}")
+        }
+
+        tree.search("WKD Blue")?.let {
+            println(it.value)
+        } ?: println("WKD Blue not found!")
+    }
+
+    "Print each level".example {
+        tree.printEachLevel()
+    }
+
 }
 
 private fun makeBeverageTree(): TreeNode<String> {
