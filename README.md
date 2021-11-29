@@ -11,6 +11,9 @@ Study of Algorithms and Data Structures in Kotlin from several sources (books, l
     - ArrayListQueue
     - LinkedListQueue
     - RingBufferQueue
+  - Binary Tree
+    - Traversals
+    - Serialization and Deserialization
 
 ### LeetCode challenges
 #### Arrays 101
