@@ -1,6 +1,7 @@
 package leetCodeBinaryTree
 
 import chapter3linkedlist.addInReverse
+import sun.reflect.generics.tree.Tree
 import java.util.*
 import kotlin.collections.ArrayDeque
 
@@ -49,7 +50,7 @@ class Solution {
 
         fun postorderTraversal(root: TreeNode?): List<Int> {
             val list = mutableListOf<Int>()
-            root?.traversePostOrder { list.add(it) }
+            root?.traversePostOrderWithArrayDeque { list.add(it) }
             return list
         }
 
@@ -128,6 +129,52 @@ class Solution {
 
         }
 
+        fun TreeNode.traversePostOrderNonRecursive(visit: Visitor<Int>) {
+
+            val stackOne = Stack<TreeNode>()
+            val stackTwo = Stack<TreeNode>()
+
+            stackOne.push(this)
+
+            while (stackOne.isNotEmpty()) {
+                var popped = stackOne.pop()
+                stackTwo.push(popped)
+                popped.left?.let { stackOne.push(it) }
+                popped.right?.let { stackOne.push(it) }
+            }
+            while (stackTwo.isNotEmpty()) { visit(stackTwo.pop().`val`) }
+
+        }
+
+        /**
+         * This is a variation based on the two-stack solution.
+         */
+        fun TreeNode.traversePostOrderWithArrayDeque(visit: Visitor<Int>) {
+
+            val arrayDeque = ArrayDeque<TreeNode>()
+            var nodeCount = 0
+
+            arrayDeque.addFirst(this)
+            nodeCount++
+
+            while (nodeCount > 0) {
+                var popped = arrayDeque.removeFirst()
+                nodeCount--
+                arrayDeque.addLast(popped)
+                popped.left?.let {
+                    arrayDeque.addFirst(it)
+                    nodeCount++
+                }
+                popped.right?.let {
+                    arrayDeque.addFirst(it)
+                    nodeCount++
+                }
+            }
+            while (arrayDeque.isNotEmpty()) { visit(arrayDeque.removeLast().`val`) }
+
+        }
+
+
     }
 
 }
@@ -137,4 +184,14 @@ typealias Visitor<Int> = (Int) -> Unit
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
+
+    override fun toString(): String {
+        return `val`.toString()
+    }
+
+    fun forEachDepthFirst(visit: Visitor<TreeNode>) {
+        left?.let {visit(it)}
+        right?.let {visit(it)}
+    }
+
 }

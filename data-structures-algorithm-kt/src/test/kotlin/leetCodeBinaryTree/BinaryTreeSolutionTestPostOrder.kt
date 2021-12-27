@@ -24,6 +24,26 @@ internal class BinaryTreeSolutionTestPostOrder {
     }
 
     @Test
+    fun givenUnbalancedTreeOfFourElements_MustReturnListinPostOrder() {
+
+        val root = TreeNode(3)
+        val two = TreeNode(2)
+        val four = TreeNode(4)
+        val one = TreeNode(1)
+
+        root.right = four
+        root.left = two
+        four.left = one
+
+        val output = Solution.postorderTraversal(root)
+        val result = listOf(2,1,4,3)
+        println(output)
+
+        assertTrue(result == output)
+
+    }
+
+    @Test
     fun givenEmptyTree_ReturnEmptyList() {
         val root = null
         val output = Solution.postorderTraversal(root)
